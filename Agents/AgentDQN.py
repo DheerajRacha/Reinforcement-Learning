@@ -7,9 +7,6 @@ from itertools import count
 from collections import namedtuple
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import Sequential
-
-from matplotlib import animation
-import matplotlib.pyplot as plt
 Transition = namedtuple('Transition', ('state', 'action', 'next_state', 'reward', 'done'))
 
 
@@ -151,27 +148,11 @@ class AgentDQN:
         self.load_from_checkpoints(checkpoints_path)
 
         for episode in range(num_episodes):
-            frames = []
             state = self.env.reset()
             while True:
                 action = self.select_action(state)
                 state, r, done, _ = self.env.step(action)
-                frames.append(self.env.render(mode="rgb_array"))
+                self.env.render(mode="rgb_array")
                 if done:
                     break
-            save_frames_as_gif(frames)
         self.env.close()
-
-
-def save_frames_as_gif(frames, path='./', filename='gym_animation.gif'):
-    plt.figure(figsize=(frames[0].shape[1] / 72.0, frames[0].shape[0] / 72.0), dpi=72)
-
-    patch = plt.imshow(frames[0])
-    plt.axis('off')
-
-    def animate(i):
-        patch.set_data(frames[i])
-
-    anim = animation.FuncAnimation(plt.gcf(), animate, frames=len(frames), interval=50)
-    anim.save(filename, writer='imagemagick', fps=60)
-A
