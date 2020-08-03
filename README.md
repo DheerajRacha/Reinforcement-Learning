@@ -31,3 +31,13 @@ are provided in *checkpoints* folder
 The above code snippet renders this window. <br>
 
 ![DQN Agent](GIFs/MountainCar_DQN_animation.gif)
+
+### ToDos
+
+- [ ] Q-Learning
+- [ ] SARSA
+- [x] DQN
+- [x] DDQN
+- [ ] Policy Gradients
+- [ ] Actor-Critics
+
